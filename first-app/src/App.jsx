@@ -5,23 +5,30 @@ import React, { useState } from 'react';
 function App() {
   const [ taskState, setTaskState ] = useState({
     tasks: [
-      { id: 1, title:"Dishes", description: "Empty dishwasher", deadline: "Today", priorityLevel: "High" },
-      { id: 2, title: "Laundry", description: "Fold clothes and put away", deadline: "Tomorrow", priorityLevel: "Low" },
-      { id: 3, title: "Tidy up", deadline: "Today", priorityLevel: "Medium" }
+      { id: 1, title:"Dishes", description: "Empty dishwasher", deadline: "Today", priorityLevel: "High", done: false },
+      { id: 2, title: "Laundry", description: "Fold clothes and put away", deadline: "Tomorrow", priorityLevel: "Low", done: false },
+      { id: 3, title: "Tidy up", deadline: "Today", priorityLevel: "Medium", done: false }
     ]
   });
 
+  const doneHandler = (taskIndex) => {
+    const tasks = [...taskState.tasks];
+    tasks[taskIndex].done = !tasks[taskIndex].done;
+    setTaskState({tasks});
+  }
 
   return (
     <div className="container">
       <h1>Tasky</h1>
-      {taskState.tasks.map((task) => (
+      {taskState.tasks.map((task, index) => (
           <Task 
             key={task.id}
             title={task.title}
             description={task.description}
             deadline={task.deadline}
             priorityLevel={task.priorityLevel}
+            done={task.done}
+            markDone={() => doneHandler(index)}
           /> 
         ))}
     </div>
