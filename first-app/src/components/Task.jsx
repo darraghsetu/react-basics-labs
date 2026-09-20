@@ -11,6 +11,7 @@ const Task = (props) => {
             style={{ fontWeight: lowPriority ? "normal" : "bold" }}
           >{props.priorityLevel}</p>
           <button onClick={props.markDone} className='doneButton'>Done</button>
+          <button onClick={props.deleteTask} className='deleteButton'>Delete</button>
       </div>
     )
 }
