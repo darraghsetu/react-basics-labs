@@ -1,5 +1,9 @@
 const Task = (props) => {
-    const lowPriority = props.priorityLevel === "Low"
+    const priorityLevelColour = { 
+      "Low": "green", 
+      "Medium": "Orange", 
+      "High": "Red" 
+    }
 
     return (
       <div className="card" style={{backgroundColor: props.done ? 'lightgrey' : '#5bb4c4'}}>
@@ -8,7 +12,7 @@ const Task = (props) => {
           <p className="description">{props.description}</p>
           <p 
             className="priorityLevel"
-            style={{ fontWeight: lowPriority ? "normal" : "bold" }}
+            style={{ backgroundColor: priorityLevelColour[props.priorityLevel], color: "white", padding: "5px"}}
           >{props.priorityLevel}</p>
           <button onClick={props.markDone} className='doneButton'>Done</button>
           <button onClick={props.deleteTask} className='deleteButton'>Delete</button>
