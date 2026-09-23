@@ -1,3 +1,14 @@
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import DoneIcon from '@mui/icons-material/Done';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 const Task = (props) => {
     const priorityLevelColour = { 
       "Low": "green", 
@@ -5,6 +16,87 @@ const Task = (props) => {
       "High": "Red" 
     }
 
+    return (
+      <Grid
+        key={props.id}
+        size={{ xs: 12, md: 6, lg: 3 }}
+      >
+        <Card
+          sx={{
+            backgroundColor: props.done ? 'lightgrey' : '#96C5ED',
+            padding: '20px'
+          }}
+        >
+
+          <CardHeader
+            title={props.title}
+            sx={{
+              backgroundColor: 'white',
+              borderRadius: '3px',
+              padding: '20px',
+              textAlign: 'center'
+            }}
+          />
+
+          <CardContent>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'baseline',
+                mb: 2,
+                padding: '20px'
+              }}
+            >
+              <Typography
+                component="p"
+                color="text.primary"
+                variant="h6" 
+              >
+                Due: {props.deadline}
+              </Typography>
+            </Box>
+
+            <Typography
+              component="p"
+              variant="subtitle1"
+              align="center"
+              sx={{ fontStyle: 'italic' }}
+            >
+              {props.description}
+            </Typography>
+          </CardContent>
+
+          <CardActions
+            sx={{
+              justifyContent: 'space-between',
+              padding: '20px'
+            }}
+          >
+            <Button
+              variant="contained"
+              size="small"
+              color="success"
+              onClick={props.markDone}
+              startIcon={<DoneIcon fontSize="small" />}
+            >
+              Done
+            </Button>
+
+            <Button
+              variant="contained"
+              size="small"
+              color="error"
+              onClick={props.deleteTask}
+              startIcon={<DeleteIcon fontSize="small" />}
+            >
+              Delete
+            </Button>
+          </CardActions>
+        </Card>
+      </Grid>
+    )
+/*
     return (
       <div className="card" style={{backgroundColor: props.done ? 'lightgrey' : '#5bb4c4'}}>
           <p className="title">{props.title}</p>
@@ -18,6 +110,7 @@ const Task = (props) => {
           <button onClick={props.deleteTask} className='deleteButton'>Delete</button>
       </div>
     )
+*/
 }
 
 export default Task;
