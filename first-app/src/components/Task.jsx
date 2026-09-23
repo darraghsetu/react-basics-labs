@@ -6,6 +6,8 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import DoneIcon from '@mui/icons-material/Done';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const Task = (props) => {
     const priorityLevelColour = { 
@@ -17,11 +19,11 @@ const Task = (props) => {
     return (
       <Grid
         key={props.id}
-        size={{ xs: 12, md: 4 }}
+        size={{ xs: 12, md: 6, lg: 3 }}
       >
         <Card
           sx={{
-            backgroundColor: props.done ? 'lightgrey' : 'lightblue',
+            backgroundColor: props.done ? 'lightgrey' : '#96C5ED',
             padding: '20px'
           }}
         >
@@ -48,8 +50,8 @@ const Task = (props) => {
             >
               <Typography
                 component="p"
-                variant="subtitle2"
                 color="text.primary"
+                variant="h6" 
               >
                 Due: {props.deadline}
               </Typography>
@@ -76,6 +78,7 @@ const Task = (props) => {
               size="small"
               color="success"
               onClick={props.markDone}
+              startIcon={<DoneIcon fontSize="small" />}
             >
               Done
             </Button>
@@ -85,6 +88,7 @@ const Task = (props) => {
               size="small"
               color="error"
               onClick={props.deleteTask}
+              startIcon={<DeleteIcon fontSize="small" />}
             >
               Delete
             </Button>

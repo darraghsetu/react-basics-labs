@@ -6,6 +6,9 @@ import { v4 as uuidv4 } from 'uuid';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
+import Divider from '@mui/material/Divider';
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
 
 function App() {
   const [ taskState, setTaskState ] = useState({
@@ -23,6 +26,8 @@ function App() {
     priorityLevel: ""
   });
 
+  const [ openState, setOpenState ] = useState(false);
+
   const doneHandler = (taskIndex) => {
     const tasks = [...taskState.tasks];
     tasks[taskIndex].done = !tasks[taskIndex].done;
@@ -32,7 +37,13 @@ function App() {
   const deleteHandler = (taskIndex) => {
     const tasks = [...taskState.tasks];
     tasks.splice(taskIndex, 1);
-    setTaskState({tasks})
+    setTaskState({tasks});
+    setOpenState(true);
+  }
+
+  const handleClose = (event, reason) => {
+    if (reason == 'clickaway') return;
+    setOpenState(false);
   }
   
   const formChangeHandler = (event) => {
@@ -82,7 +93,7 @@ function App() {
           align="center"
           gutterBottom
           sx={{
-            backgroundColor: 'gray',
+            backgroundColor: '#1f75d1',
             textAlign: 'center',
             color: 'white',
             padding: '20px',
@@ -96,13 +107,14 @@ function App() {
       {/* End App Header */}
 
       {/* Task Card Grid */}
-      <Container maxWidth="md" component="main">
-        <Grid
-          container
-          spacing={5}
-          alignItems="flex-start"
-          justifyContent="center"
-        >
+      <Container maxWidth="lg" component="main">
+          <Grid
+            container
+            spacing={5}
+            sx={{
+              justifyContent: "center"
+            }}
+          >
           {taskState.tasks.map((task, index) => (
             <Task
               title={task.title}
@@ -110,7 +122,6 @@ function App() {
               deadline={task.deadline}
               done={task.done}
               key={task.id}
-              priorityLevel={task.priorityLevel}
               markDone={() => doneHandler(index)}
               deleteTask={() => deleteHandler(index)}
             />
@@ -128,7 +139,9 @@ function App() {
           py: 6,
         }}
       >
-        <Grid container justifyContent="center">
+        <Grid container sx={{
+          justifyContent: "center"
+        }}>
           <AddTaskForm
             submit={formSubmitHandler}
             change={formChangeHandler}
@@ -137,6 +150,16 @@ function App() {
       </Container>
       {/* End Footer */}
 
+      <Snackbar
+        open={openState}
+        autoHideDuration={4000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert onClose={handleClose} severity="success" variant="filled">
+          Task successfully deleted
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

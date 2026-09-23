@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import AddIcon from '@mui/icons-material/Add';
 
 const AddTaskForm = (props) => {
 
@@ -56,6 +57,7 @@ const AddTaskForm = (props) => {
             p: 1,
             width: '95%'
           }}
+          startIcon={<AddIcon />} 
         >
           Add Task
         </Button>
